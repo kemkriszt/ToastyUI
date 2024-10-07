@@ -1,18 +1,18 @@
 import SwiftUI
-import UIKit
 
 fileprivate let toastTimeInterval: TimeInterval = 5
 
 public struct ToastWrapper: ViewModifier {
     @State private var activeToast: Toast?
     @GestureState private var dragHeight: CGFloat = 0
+    private let feedbackGenerator = FeedbackGenerator()
     
     public func body(content: Content) -> some View {
         content
             .environment(\.showToast) { newToast in
                 withAnimation {
                     self.activeToast = newToast
-                    hapticFeedback()
+                    feedbackGenerator.generateFeedback()
                 }
             }
             .onChange(of: activeToast) { newValue in
@@ -47,11 +47,6 @@ public struct ToastWrapper: ViewModifier {
                         )
                 }
             }
-    }
-    
-    private func hapticFeedback() {
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.warning)
     }
     
     private func dragMapper(_ value: CGFloat) -> CGFloat {
