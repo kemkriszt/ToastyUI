@@ -2,6 +2,7 @@
 ## A lightweight SwiftUI toast message library
 
 Add toast messages to your SwiftUI app with ease
+![preview](preview.png)
 
 ## Usage
 
